@@ -1,0 +1,103 @@
+# ===== CONFIGURATION & SECURITY =====
+# Sensitive configuration files
+config/database.php
+config/production.php
+.env
+.env.local
+.env.production
+
+# ===== DATABASE =====
+# Local database files
+*.db
+*.sqlite
+*.sqlite3
+data/
+dumps/
+
+# ===== PHP =====
+# PHP cache and logs
+*.log
+cache/
+tmp/
+temp/
+
+# PHP sessions
+sessions/
+
+# Composer (if used later)
+vendor/
+composer.lock
+
+# ===== UPLOADS & USER FILES =====
+# User uploaded images
+public/uploads/
+public/images/uploads/
+uploads/
+
+# User avatars
+public/avatars/
+avatars/
+
+# Uploaded book images
+public/books/
+books/
+
+# ===== SASS & CSS =====
+# Compiled CSS (keep only Sass sources)
+public/css/*.css
+public/css/*.css.map
+
+# Sass cache
+.sass-cache/
+*.css.map
+
+# ===== NODE.JS & NPM =====
+# Node dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Package locks (keep package.json, exclude locks)
+package-lock.json
+yarn.lock
+
+# ===== SYSTEM =====
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# ===== BACKUPS & TEMPORARIES =====
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
+*.tmp
+
+# Development archives
+*.zip
+*.tar.gz
+*.rar
+dev-backup/
+
+# Personal development notes
+TODO.md
+

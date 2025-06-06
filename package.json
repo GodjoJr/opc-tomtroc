@@ -1,0 +1,18 @@
+{
+  "name": "tomtroc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prod": "sass public/scss/main.scss public/css/style.min.css --style compressed",
+    "watch": "concurrently \"sass --watch public/scss/main.scss:public/css/style.dev.css --style expanded\" \"browser-sync start --server public --files public/css/style.dev.css\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^3.0.4",
+    "concurrently": "^9.1.2",
+    "sass": "^1.89.1"
+  }
+}
