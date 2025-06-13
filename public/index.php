@@ -1,35 +1,31 @@
 <?php
+
+define('ROOT_URL', dirname(__DIR__));
+
 $requestUri = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 $assetPath = realpath(__DIR__ . $requestUri);
 
 if ($requestUri !== '/' && $assetPath && is_file($assetPath)) {
-    return false; // Sert directement les assets (css, js, images)
+    return false;
 }
 
-// Ici, tu peux ajouter la gestion des routes contrôleur (exemple ci-dessous)
+require_once ROOT_URL . '/config/config.php';
+require_once ROOT_URL . '/helpers/autoload.php';
 
-if ($requestUri === '/' || $requestUri === '/index.php') {
-    // on laisse passer vers la page HTML
-} else {
-    // Pour toute autre route non trouvée, on renvoie 404
-    header("HTTP/1.1 404 Not Found");
-    echo "404 - Not Found";
-    exit;
-}
-?>
+ ?>
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/style.dev.css" />
+    <link rel="stylesheet" href="/css/style.dev.css">
 </head>
+<body>
 
-<body style="min-width: 1000px; min-height: 1000px;">
-    <h1>Bonjour</h1>
-    <a href="./index2.html"><p>Lien vers </p>la page 3</a>
+<?php
+$router = new Router();
+
+ ?>
 </body>
-
 </html>
