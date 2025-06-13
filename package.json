@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prod": "sass public/scss/main.scss public/css/style.min.css --style compressed",
-    "watch": "concurrently \"sass --watch public/scss/main.scss:public/css/style.dev.css --style expanded\" \"browser-sync start --server public --files public/css/style.dev.css\""
+    "prod": "sass public/scss/main.scss public/css/style.css --style compressed",
+    "watch": "concurrently \"sass --watch public/scss/main.scss:public/css/style.dev.css --style expanded --load-path=public/scss\" \"browser-sync start --proxy 'localhost:8000' --files 'public/css/style.dev.css, public/**/*.php'\""
   },
   "keywords": [],
   "author": "",

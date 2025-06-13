@@ -27,6 +27,7 @@ sessions/
 # Composer (if used later)
 vendor/
 composer.lock
+composer.json
 
 # ===== UPLOADS & USER FILES =====
 # User uploaded images
@@ -59,7 +60,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # Package locks (keep package.json, exclude locks)
-package-lock.json
 yarn.lock
 
 # ===== SYSTEM =====
