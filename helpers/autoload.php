@@ -1,16 +1,13 @@
 <?php
 
 spl_autoload_register(function ($class) {
-    $paths = [
-        ROOT_URL . '/core/' . $class . '.php',
-        ROOT_URL . '/app/controllers/' . $class . '.php',
-        ROOT_URL . '/app/models/' . $class . '.php',
-    ];
+    // On transforme les \ en / pour correspondre aux dossiers
+    $classPath = str_replace('\\', DIRECTORY_SEPARATOR, $class);
 
-    foreach ($paths as $file) {
-        if (file_exists($file)) {
-            require_once $file;
-            break;
-        }
+    // On suppose que le namespace racine correspond à l’arborescence des dossiers
+    $file = ROOT_URL . '/' . $classPath . '.php';
+
+    if (file_exists($file)) {
+        require_once $file;
     }
 });

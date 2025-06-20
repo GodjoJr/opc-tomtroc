@@ -3,6 +3,12 @@
 define('ROOT_URL', dirname(__DIR__));
 
 $requestUri = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+
+if ($requestUri === '/favicon.ico') {
+    http_response_code(204); // Pas de contenu, mais OK
+    exit;
+}
+
 $assetPath = realpath(__DIR__ . $requestUri);
 
 if ($requestUri !== '/' && $assetPath && is_file($assetPath)) {
@@ -12,20 +18,6 @@ if ($requestUri !== '/' && $assetPath && is_file($assetPath)) {
 require_once ROOT_URL . '/config/config.php';
 require_once ROOT_URL . '/helpers/autoload.php';
 
- ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/style.dev.css">
-</head>
-<body>
+$router = new Core\Router();
 
-<?php
-$router = new Router();
-
- ?>
-</body>
-</html>
+?>

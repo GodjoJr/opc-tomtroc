@@ -1,7 +1,11 @@
 <?php 
 
+use Core\Controller;
+use App\Views\View;
+
 class TestController extends Controller {
     public function index() {
-        $this->view('test');
+        $views = new View('Test');
+        $views->render('test');
     }
 }

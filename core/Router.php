@@ -1,5 +1,10 @@
 <?php
 
+namespace Core;
+
+use Core\Controller;
+use Core\Error;
+
 /**
  * Classe de routeur pour gérer les requêtes HTTP.
  */
@@ -48,8 +53,13 @@ class Router
      */
     private function parseUrl(): array
     {
+        $url = isset($_GET['url']) ? $_GET['url'] : $_SERVER['REQUEST_URI'];
+        //TODO FACTORISER AVEC CA
+
         if (isset($_GET['url'])) {
             return explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
+        } else if (trim($_SERVER['REQUEST_URI'], '/')) {
+            return explode('/', filter_var(trim($_SERVER['REQUEST_URI'], '/'), FILTER_SANITIZE_URL));
         }
         return [];
     }
@@ -63,26 +73,17 @@ class Router
     {
         http_response_code(404);
 
-        $this->logError($message);
-    
-        // Optionnel : afficher une page d’erreur simple à l’utilisateur
+        new Error($message);
+
+        // Afficher une page d’erreur simple à l’utilisateur
+        
         echo "<h1>404 - Page non trouvée</h1>";
         echo "<p>Une erreur est survenue. Elle a été enregistrée.</p>";
-    
+        echo "<a href='/'>Retour à la page d'accueil</a>";
+
+
         exit;
     }
 
-    /**
-     * Enregistre un message d'erreur dans le fichier de log d'erreurs.
-     *
-     * @param string $message Le message d'erreur à enregistrer.
-     */
-    private function logError(string $message): void
-{
-    $logMessage = '[' . date('Y-m-d H:i:s') . "] $message\n";
-    file_put_contents(ROOT_URL . '/logs/error.log', $logMessage, FILE_APPEND);
-}
-
-    
 }
 
