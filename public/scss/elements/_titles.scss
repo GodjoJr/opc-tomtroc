@@ -1,3 +1,6 @@
+@use './tools/' as tools;
+
 h1 {
     color: black;
+    font-family: tools.$Playfair;
 }

@@ -17,13 +17,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title ?></title>
-    <link rel="stylesheet" href="./css/style.dev.css">
+    <link rel="stylesheet" href="/css/style.dev.css">
 </head>
 
 <body>
 
     <header>
-        <img src="./images/logo.svg" alt="Logo du site">
+        <img src="/icons/logo.svg" alt="Logo du site">
 
         <nav>
             <ul>
@@ -59,7 +59,7 @@
                 <li><a href="/contact">Tom Troc©</a></li>
             </ul>
 
-            <img src="./images/logo-footer.svg" alt="Logo du site">
+            <img src="/icons/logo-footer.svg" alt="Logo du site">
         </nav>
     </footer>
 
