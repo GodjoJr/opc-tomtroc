@@ -1,0 +1,138 @@
+@use './tools/' as tools;
+
+header:not(.opened) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: var(--color-background);
+
+    .logo-container {
+        width: 155px;
+        height: 51px;
+
+        &.mobile {
+            display: none;
+        }
+    }
+
+
+    nav {
+
+        @media screen and (max-width: tools.$breakpoint-largemobile) {
+            display: none;
+        }
+
+        ul {
+            display: flex;
+            gap: 44px;
+            padding: 0;
+
+            @media screen and (max-width: tools.$breakpoint-tablet) {
+                gap: 25px;
+            }
+
+            li {
+                a {
+                    color: var(--color-text);
+                    font-family: tools.$Inter;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                    letter-spacing: 0.28px;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+
+                    img {
+                        width: auto;
+                        height: 14px;
+                    }
+                }
+            }
+        }
+    }
+
+    .burger {
+        @media screen and (min-width: tools.$breakpoint-largemobile) {
+            display: none;
+        }
+    }
+}
+
+header.opened {
+    position: fixed;
+    top: 0;
+    left: unset;
+    right: 0;
+    width: 70%;
+    height: 100vh;
+    z-index: 999;
+    background-color: var(--color-primary);
+    padding: 50px 30px 30px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    @media screen and (max-width: tools.$breakpoint-largemobile) {
+        width: 100%;
+    }
+
+    .logo-container {
+        width: 200px;
+        height: auto;
+        margin-bottom: 20px;
+
+        &.desktop {
+            display: none;
+        }
+    }
+
+    nav {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+
+        ul {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 0;
+
+            li {
+                a {
+                    color: var(--color-white);
+                    font-family: tools.$Inter;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                    letter-spacing: 0.32px;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+
+                    img {
+                        width: auto;
+                        height: 16px;
+                        filter: brightness(0) invert(1);
+                    }
+                }
+            }
+        }
+
+    }
+
+    .burger {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+
+        .line {
+            stroke: var(--color-white);
+        }
+    }
+}

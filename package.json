@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prod": "sass public/scss/main.scss public/css/style.css --style compressed",
+    "prod": "sass public/scss/main.scss public/css/style.css --style compressed --load-path=public/scss",
     "watch": "concurrently \"sass --watch public/scss/main.scss:public/css/style.dev.css --style expanded --load-path=public/scss\" \"browser-sync start --proxy 'localhost:8000' --files 'public/css/style.dev.css, public/**/*.php'\""
   },
   "keywords": [],

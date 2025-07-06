@@ -1,6 +1,10 @@
 @use './tools/' as tools;
 
 h1 {
-    color: black;
-    font-family: tools.$Playfair;
+    color: #000;
+    font-family: "Playfair Display";
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
