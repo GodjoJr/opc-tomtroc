@@ -45,10 +45,10 @@
 
         <nav>
             <ul>
-                <li><a href="/mailbox"><img src="/icons/mailbox.svg" alt="Icone de messagerie">Messagerie</a></li>
-                <li><a href="/account"><img src="/icons/account.svg" alt="Icone de compte">Mon compte</a></li>
-
+                
                 <?php if (isset($_SESSION['user'])): ?>
+                    <li><a href="/mailbox"><img src="/icons/mailbox.svg" alt="Icone de messagerie">Messagerie</a></li>
+                    <li><a href="/account"><img src="/icons/account.svg" alt="Icone de compte">Mon compte</a></li>
                     <li><a href="/logout">Deconnexion</a></li>
                 <?php else: ?>
                     <li><a href="/auth/login">Connexion</a></li>

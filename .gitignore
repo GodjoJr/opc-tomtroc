@@ -31,17 +31,12 @@ composer.json
 
 # ===== UPLOADS & USER FILES =====
 # User uploaded images
-public/uploads/
-public/images/uploads/
-uploads/
+public/uploads/*
+!public/uploads/.gitkeep
 
 # User avatars
 public/avatars/
 avatars/
-
-# Uploaded book images
-public/books/
-books/
 
 # ===== SASS & CSS =====
 # Compiled CSS (keep only Sass sources)
