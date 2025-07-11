@@ -1,9 +1,13 @@
 <?php
+namespace App\Models;
+
+use App\Models\User;
+use Core\ModelManager;
 use Core\Error;
-/**
+/** 
  * Classe qui gère les articles.
  */
-class Manager extends ModelManager
+class UsersManager extends ModelManager
 {
 
     /**
@@ -12,23 +16,23 @@ class Manager extends ModelManager
      */
     public function createUser(User $user)
     {
-        $sql = "INSERT INTO users (username, email, password, avatar, created_at) VALUES (:username, :email, :password, :avatar, NOW())";
+
+        $sql = "INSERT INTO users (u_username, u_email, u_password, u_created_at) VALUES (:username, :email, :password, NOW())";
         $this->db->query($sql, [
             'username' => $user->getUsername(),
             'email' => $user->getEmail(),
             'password' => $user->getPassword(),
-            'avatar' => $user->getAvatar(),
         ]);
     }
 
     /**
      * Recherche un utilisateur par son email.
      * @param string $email : l'email de l'utilisateur à chercher.
-     * @return User|Error
+     * @return User|null
      */
     public function findUserByEmail($email)
     {
-        $sql = "SELECT * FROM users WHERE email = :email";
+        $sql = "SELECT * FROM users WHERE u_email = :email";
         $result = $this->db->query($sql, [
             'email' => $email,
         ]);
@@ -36,7 +40,7 @@ class Manager extends ModelManager
         if ($user) {
             return new User($user);
         }
-        return new Error("l'utilisateur n'existe pas.");
+        return null;
 
     }
 
@@ -59,3 +63,4 @@ class Manager extends ModelManager
         return new Error("l'utilisateur n'existe pas.");
     }
 }
+

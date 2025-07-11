@@ -48,9 +48,10 @@
                 
                 <?php if (isset($_SESSION['user'])): ?>
                     <li><a href="/mailbox"><img src="/icons/mailbox.svg" alt="Icone de messagerie">Messagerie</a></li>
-                    <li><a href="/account"><img src="/icons/account.svg" alt="Icone de compte">Mon compte</a></li>
-                    <li><a href="/logout">Deconnexion</a></li>
+                    <li><a href="/dashboard/profile/<?= htmlspecialchars($_SESSION['user']['username']) ?>"><img src="/icons/account.svg" alt="Icone de compte">Mon compte</a></li>
+                    <li><a href="/auth/logout">Deconnexion</a></li>
                 <?php else: ?>
+                    <li><a href="/auth/signup">Inscription</a></li>
                     <li><a href="/auth/login">Connexion</a></li>
                 <?php endif; ?>
 
