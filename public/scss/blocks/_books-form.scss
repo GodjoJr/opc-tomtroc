@@ -1,0 +1,75 @@
+@use './tools/' as tools;
+
+#create-book {
+    form {
+        display: flex;
+        gap: 70px;
+
+        .left-container {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+
+            img {
+                width: 500px;
+                height: 500px;
+                object-fit: cover;
+                background-color: grey;
+            }
+        }
+
+        .right-container {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            color: var(--color-text-light);
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            margin-top: 32px;
+            margin-bottom: 10px;
+        }
+
+        input,
+        textarea,
+        select,
+        &input:not(input[type="file"]) {
+            border-radius: 6px;
+            border: 1px solid var(--color-background);
+            background: var(--color-white);
+            padding: 25px 15px;
+            font-size: 16px;
+            font-style: normal;
+            line-height: normal;
+            background-color: var(--color-light-blue);
+
+            &:focus {
+                outline: solid 2px var(--color-primary);
+            }
+        }
+
+        select {
+            padding: 15px 15px;
+
+        }
+
+        button {
+            border-radius: 6px;
+            padding: 25px 15px;
+            font-size: 16px;
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            border: none;
+            cursor: pointer;
+            padding: 22px 38px;
+            font-weight: 600;
+            margin-top: 32px;
+
+        }
+    }
+}

@@ -2,6 +2,7 @@
 
 use Core\Controller;
 use App\Views\View;
+use App\Models\BooksManager;
 
 class DashboardController extends Controller
 {
@@ -18,9 +19,13 @@ class DashboardController extends Controller
             exit;
         }
 
+        $books = new BooksManager();
+        $_SESSION['user']['books'] = $books->getBooksByUserId($_SESSION['user']['id']);
+
         $view = new View('Mon profil');
         $view->render('dashboard/profile', [
-            'user' => $_SESSION['user']
+            'user' => $_SESSION['user'],
+            'books' => $_SESSION['user']['books']
         ]);
     }
 }

@@ -7,6 +7,7 @@ $primary: #00AC66;
 $background: #F5F3EF;
 $background-light: #FAF9F7;
 $text-light: #A6A6A6;
+$light-blue: #F0F0F0;
 $text: #292929;
 $black: #000000;
 $white: #FFFFFF;
@@ -20,6 +21,8 @@ $error: #FF0000;
 
     --color-text: #{$text};
     --color-text-light: #{$text-light};
+
+    --color-light-blue: #{$light-blue};
     
     --color-background: #{$background};
     --color-background-light: #{$background-light};
