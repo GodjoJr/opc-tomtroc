@@ -39,7 +39,7 @@
         <nav>
             <ul>
                 <li><a href="/">Accueil</a></li>
-                <li><a href="/test">Nos livres à l'échange</a></li>
+                <li><a href="/books/archive">Nos livres à l'échange</a></li>
             </ul>
         </nav>
 

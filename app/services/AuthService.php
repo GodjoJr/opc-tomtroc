@@ -38,6 +38,7 @@ class AuthService
             ->setUsername(htmlspecialchars($data['username']))
             ->setEmail(htmlspecialchars($data['email']))
             ->setPassword(password_hash($data['password'], PASSWORD_DEFAULT))
+            ->setAvatar('/images/default-avatar.png')
             ->setCreatedAt(new \DateTime());
 
         $userManager->createUser($user);
@@ -76,6 +77,9 @@ class AuthService
             'id' => $user->getId(),
             'username' => $user->getUsername(),
             'email' => $user->getEmail(),
+            'created_at' => $user->getCreatedAt(),
+            'avatar' => $user->getAvatar(),
+            'account_age' => $user->accountAge()
         ];
 
         return ['success' => true];

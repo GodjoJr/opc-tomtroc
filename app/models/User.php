@@ -14,6 +14,7 @@ class User extends ModelEntity
     private string $username;
     private string $email;
     private string $password;
+    private string $avatar;
     private \DateTime $createdAt;
 
     /**
@@ -77,6 +78,26 @@ class User extends ModelEntity
     }
 
     /**
+     * Retourne l'avatar de l'utilisateur.
+     * @return string
+     */
+    public function getAvatar(): string
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * Définit l'avatar de l'utilisateur.
+     * @param string $avatar
+     * @return self
+     */
+    public function setAvatar(string $avatar): self
+    {
+        $this->avatar = $avatar;
+        return $this;
+    }
+
+    /**
      * Retourne la date d'inscription de l'utilisateur.
      * @return \DateTime
      */
@@ -98,6 +119,29 @@ class User extends ModelEntity
 
         $this->createdAt = $createdAt;
         return $this;
+    }
+
+    public function accountAge(): string
+    {
+        $interval = $this->createdAt->diff(new \DateTime());
+        $years = $interval->y;
+        $months = $interval->m;
+
+        $parts = [];
+
+        if ($years > 0) {
+            $parts[] = $years . ' ' . ($years === 1 ? 'an' : 'ans');
+        }
+
+        if ($months > 0) {
+            $parts[] = $months . ' ' . ($months === 1 ? 'mois' : 'mois');
+        }
+
+        if (empty($parts)) {
+            return 'Membre depuis moins d’un mois';
+        }
+
+        return 'Membre depuis ' . implode(' et ', $parts);
     }
 
 }

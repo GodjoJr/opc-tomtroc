@@ -10,6 +10,7 @@ class BooksController extends Controller
     public function create()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            //TODO : ajouter des checks
             $title = $_POST['title'] ?? '';
             $author = $_POST['author'] ?? '';
             $commentary = $_POST['commentary'] ?? '';
@@ -31,7 +32,8 @@ class BooksController extends Controller
                 if (move_uploaded_file($tmpName, $destination)) {
                     $imagePath = $publicPath . $safeName;
                 } else {
-                    echo "Erreur lors de l'envoi du fichier.";
+                    //TODO : verfier/modifier
+                    new Error('Une erreur est survenue lors de l\'upload de l\'image.');
                 }
             }
 
@@ -54,5 +56,47 @@ class BooksController extends Controller
             $views = new View('Ajouter un livre');
             $views->render('books/create');
         }
+    }
+
+    public function archive()
+    {
+
+        $booksManager = new BooksManager();
+        $books = $booksManager->getAllBooks();
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Vérif CSRF
+
+            if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+                die('Erreur : jeton CSRF invalide.');
+            }
+
+            if (isset($_POST['search'])) {
+                $books = $booksManager->getBooksByName($_POST['search']);
+            }
+        }
+
+        $views = new View('Nos livres à l\'échange');
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        $views->render(
+            'books/archive',
+            [
+                'books' => $books
+            ]
+        );
+    }
+
+    public function detail($id)
+    {
+        $booksManager = new BooksManager();
+        $book = $booksManager->getBookById($id);
+        
+        $views = new View('Detail du livre');
+        $views->render(
+            'books/detail',
+            [
+                'book' => $book
+            ]
+        );
     }
 }

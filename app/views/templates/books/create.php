@@ -11,8 +11,6 @@
             <label for="cover">Couverture</label>
             <img id="preview" src="#" alt="Aperçu de l'image">
             <input type="file" name="cover" id="cover">
-
-            //
         </div>
 
         <div class="right-container">
