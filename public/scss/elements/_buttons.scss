@@ -1,0 +1,35 @@
+@use './tools/' as *;
+
+
+.btn {
+    display: inline-flex;
+    padding: 22px 38px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px;
+    background: var(--color-primary);
+    color: var(--color-white);
+    width: max-content;
+    transition: all 0.3s ease-in-out;
+
+    &.full {
+        width: 100%;
+    }
+
+    &.transparent {
+        background: transparent;
+        border: 1px solid var(--color-primary);
+        color: var(--color-primary);
+
+        &:hover {
+            border: 1px solid var(--color-primary-dark);
+            background: var(--color-primary-dark);
+            color: var(--color-white);
+        }
+    }
+
+    &:hover {
+        background: var(--color-primary-dark);
+    }
+}

@@ -1,46 +1,48 @@
 @use './tools/' as tools;
 
 footer {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 44px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    background-color: var(--color-white);
+    padding: 15px 0;
+    .container {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 44px;
 
-    @media screen and (max-width: tools.$breakpoint-largemobile) {
-        flex-direction: column-reverse;
-        gap: 15px;
-    }
+        @media screen and (max-width: tools.$breakpoint-largemobile) {
+            flex-direction: column-reverse;
+            gap: 15px;
+        }
 
-    nav {
-        ul {
-            display: flex;
-            gap: 44px;
-            padding: 0;
+        nav {
+            ul {
+                display: flex;
+                gap: 44px;
+                padding: 0;
 
-            @media screen and (max-width: tools.$breakpoint-largemobile) {
-                flex-direction: column;
-                gap: 15px;
-            }
+                @media screen and (max-width: tools.$breakpoint-largemobile) {
+                    flex-direction: column;
+                    gap: 15px;
+                }
 
-            li {
-                text-align: center;
+                li {
+                    text-align: center;
 
-                a {
-                    color: var(--color-text);
-                    font-family: tools.$Inter;
-                    font-size: 12px;
-                    font-style: normal;
-                    font-weight: 300;
-                    line-height: normal;
+                    a {
+                        color: var(--color-text);
+                        font-family: tools.$Inter;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 300;
+                        line-height: normal;
+                    }
                 }
             }
         }
-    }
 
-    .logo-container {
-        width: 22px;
-        height: 17.362px;
+        .logo-container {
+            width: 22px;
+            height: 17.362px;
+        }
     }
 }

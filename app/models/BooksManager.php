@@ -39,6 +39,7 @@ class BooksManager extends ModelManager
 
     public function getAllBooks()
     {
+        //rajouter order by
         $sql = "SELECT 
             books.*, 
             users.*
@@ -74,7 +75,7 @@ class BooksManager extends ModelManager
         users.*
         FROM books 
         JOIN users ON books.b_user_id = users.u_id
-        ORDER BY books.b_id DESC
+        ORDER BY books.b_created_at DESC
         LIMIT $limit";
         return $this->db->query($sql)->fetchAll();
     }

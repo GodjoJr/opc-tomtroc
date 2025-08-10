@@ -2,33 +2,44 @@
     <h1>Mon compte</h1>
     <div class="user-container">
         <div class="left-container">
-            <div class="image-container" style="width: 200px; height: 200px;">
-                <img src="<?= $user['avatar'] ?: '/images/default-avatar.jpg' ?>" alt="avatar de l'utilisateur">
+
+            <div class="top-container">
+                <div class="image-container">
+                    <img src="<?= $user['avatar'] ?: '/images/default-avatar.jpg' ?>" alt="avatar de l'utilisateur">
+                </div>
+
+                <form action="" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                    <input type="file" name="avatar" id="avatar">
+                    <button type="submit">Modifier</button>
+                    <?php if (!empty($errors['avatar'])): ?>
+                        <div class="error-message">
+                            <?php foreach ($errors['avatar'] as $error): ?>
+                                <p><?= htmlspecialchars($error) ?></p>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                </form>
             </div>
-            
-            <form action="" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
-                <input type="file" name="avatar" id="avatar">
-                <button type="submit">Modifier</button>
-                <?php if (!empty($errors['avatar'])): ?>
-                    <div class="error-message">
-                        <?php foreach ($errors['avatar'] as $error): ?>
-                            <p><?= htmlspecialchars($error) ?></p>
-                        <?php endforeach; ?>
-                    </div>
-                <?php endif; ?>
-            </form>
 
-            <h2 class="username"><?= $user['username'] ?></h2>
-            <p class="member-since"><?= $user['account_age'] ?></p>
+            <div class="infos">
 
-            <p class="bookshelf">Bibliothèque</p>
-            <a href="#books"><img src="/icons/livres.svg" alt="Icone de livre"><?= count($user['books']) ?>
-                livre<?= count($user['books']) > 1 ? 's' : '' ?></a>
+                <h3 class="username"><?= $user['username'] ?></h3>
+                <p class="member-since"><?= $user['account_age'] ?></p>
+
+                <span class="title">Bibliothèque</span>
+                <a class="books-count" href="#books"><img src="/icons/livres.svg"
+                        alt="Icone de livre"><?= count($user['books']) ?>
+                    livre<?= count($user['books']) > 1 ? 's' : '' ?></a>
+
+            </div>
+
         </div>
 
         <div class="right-container">
             <form action="" method="post">
+                <p>Vos informations personnelles</p>
+
                 <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
 
                 <label for="email">Adresse email</label>
@@ -61,40 +72,71 @@
                     </div>
                 <?php endif; ?>
 
-                <button type="submit">Modifier</button>
+                <button class="btn transparent" type="submit">Enregistrer</button>
             </form>
         </div>
     </div>
 
     <div id="books">
+
         <table>
+
             <thead>
                 <tr>
-                    <th>Photo</th>
-                    <th>Titre</th>
-                    <th>Auteur</th>
-                    <th>Description</th>
-                    <th>Disponibilité</th>
-                    <th>Action</th>
+                    <th class="cover">Photo</th>
+                    <th class="title">Titre</th>
+                    <th class="author">Auteur</th>
+                    <th class="description">Description</th>
+                    <th class="status">Disponibilité</th>
+                    <th class="actions">Action</th>
                 </tr>
             </thead>
+
             <tbody>
                 <?php foreach ($user['books'] as $book): ?>
                     <tr>
-                        <td><img style="max-width: 150px; max-height: 100px;"
-                                src="<?= $book['b_image'] ?: '/images/default-cover.jpg' ?>" alt="Couverture du livre"></td>
-                        <td><?= $book['b_title'] ?></td>
-                        <td><?= $book['b_author'] ?></td>
-                        <td><?= $book['b_description'] ?></td>
-                        <td><?= $book['b_status'] ? 'Disponible' : 'Indisponible' ?></td>
-                        <td>
-                            <a href="/books/edit/<?= $book['b_id'] ?>">Modifier</a>
-                            <a href="/books/delete/<?= $book['b_id'] ?>">Supprimer</a>
+                        <td class="cover">
+                            <img src="<?= $book['b_image'] ?: '/images/default-cover.jpg' ?>" alt="Couverture du livre">
+                        </td>
+                        <td class="title">
+                            <div><?= $book['b_title'] ?></div>
+                        </td>
+                        <td class="author">
+                            <div><?= $book['b_author'] ?></div>
+                        </td>
+                        <td class="description">
+                            <div><?= $book['b_description'] ?></div>
+                        </td>
+                        <td class="status <?= $book['b_status']; ?>">
+                            <div>
+                                <?php switch ($book['b_status']):
+                                    case 'available':
+                                        echo 'Disponible';
+                                        break;
+                                    case 'unavailable':
+                                        echo 'Non disp.';
+                                        break;
+                                    default:
+                                        echo 'Non renseigné';
+                                        break;
+                                endswitch;
+                                ?>
+                            </div>
+                        </td>
+                        <td class="actions">
+                            <div>
+                                <a class="edit" href="/books/edit/<?= $book['b_id'] ?>">Modifier</a>
+                                <a class="delete" href="/books/delete/<?= $book['b_id'] ?>">Supprimer</a>
+                            </div>
                         </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
+
         </table>
+
+        <a href="/books/create" class="btn">Ajouter un livre</a>
+
     </div>
 
 </div>

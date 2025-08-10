@@ -65,6 +65,7 @@ class BooksController extends Controller
         $books = $booksManager->getAllBooks();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            //Faire un GET pour avoir l'url avec les parametres
             // Vérif CSRF
 
             if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
@@ -90,7 +91,7 @@ class BooksController extends Controller
     {
         $booksManager = new BooksManager();
         $book = $booksManager->getBookById($id);
-        
+
         $views = new View('Detail du livre');
         $views->render(
             'books/detail',
@@ -98,5 +99,19 @@ class BooksController extends Controller
                 'book' => $book
             ]
         );
+    }
+
+    public function delete($id)
+    {
+        //TODO
+
+        header('Location: /dashboard/profile/' . $_SESSION['user']['username']);
+    }
+
+    function edit($id)
+    {
+        //TODO
+
+        header('Location: /dashboard/profile/' . $_SESSION['user']['username']);
     }
 }

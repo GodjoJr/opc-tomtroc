@@ -45,10 +45,11 @@
 
         <nav>
             <ul>
-                
+
                 <?php if (isset($_SESSION['user'])): ?>
-                    <li><a href="/mailbox"><img src="/icons/mailbox.svg" alt="Icone de messagerie">Messagerie</a></li>
-                    <li><a href="/dashboard/profile/<?= htmlspecialchars($_SESSION['user']['username']) ?>"><img src="/icons/account.svg" alt="Icone de compte">Mon compte</a></li>
+                    <li><a href="/message"><img src="/icons/mailbox.svg" alt="Icone de messagerie">Messagerie</a></li>
+                    <li><a href="/dashboard/profile/<?= htmlspecialchars($_SESSION['user']['username']) ?>"><img
+                                src="/icons/account.svg" alt="Icone de compte">Mon compte</a></li>
                     <li><a href="/auth/logout">Deconnexion</a></li>
                 <?php else: ?>
                     <li><a href="/auth/signup">Inscription</a></li>
@@ -76,18 +77,23 @@
         <?= $content /* Ici est affiché le contenu réel de la page. */ ?>
     </main>
 
-    <footer class="container">
-        <nav>
-            <ul>
-                <li><a href="/privacy">Politique de confidentialité</a></li>
-                <li><a href="/legal">Mentions légales</a></li>
-                <li><a href="/contact">Tom Troc©</a></li>
-            </ul>
-        </nav>
+    <footer>
 
-        <a href="/" class="logo-container">
-            <img src="/icons/logo-footer.svg" alt="Logo du site">
-        </a>
+        <div class="container">
+
+            <nav>
+                <ul>
+                    <li><a href="/privacy">Politique de confidentialité</a></li>
+                    <li><a href="/legal">Mentions légales</a></li>
+                    <li><a href="/contact">Tom Troc©</a></li>
+                </ul>
+            </nav>
+
+            <a href="/" class="logo-container">
+                <img src="/icons/logo-footer.svg" alt="Logo du site">
+            </a>
+            
+        </div>
     </footer>
 
 </body>

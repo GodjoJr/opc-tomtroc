@@ -10,10 +10,11 @@ body {
 
 body {
     position: relative;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     min-height: 100vh;
-
-    background-color: var(--color-background-light);
+    background-color: var(--color-background);
     font-family: tools.$Inter;
     color: var(--color-text);
 
@@ -23,6 +24,36 @@ body {
         min-width: 0;
         box-sizing: border-box;
     }
+
+    p,
+    a,
+    div,
+    ul,
+    li,
+    span,
+    button,
+    input,
+    textarea,
+    select,
+    option,
+    label,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    section,
+    article {
+        padding: 0;
+        margin: 0;
+    }
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 li {
@@ -43,8 +74,8 @@ svg * {
     margin: 0 auto;
 
     @media screen and (max-width: tools.$breakpoint-desktop) {
-       padding-left: 20px;
-       padding-right: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
     }
 
 }

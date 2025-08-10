@@ -1,9 +1,27 @@
-@use './tools/' as tools;
+@use './tools/' as *;
 
 h1 {
-    color: #000;
-    font-family: "Playfair Display";
+    color: var(--color-black);
+    font-family: $Playfair;
     font-size: 36px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+h2 {
+    color: var(--color-black);
+    font-family: $Playfair;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+h3 {
+    color: var(--color-black);
+    font-family: $Playfair;
+    font-size: 24px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;

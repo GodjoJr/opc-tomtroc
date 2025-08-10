@@ -1,0 +1,51 @@
+@use './tools/' as *;
+
+.books-archive {
+    margin: 80px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+
+    .top-container {
+        width: 100%;
+        max-width: 1240px;
+        display: flex;
+        justify-content: space-between;
+
+        .search-container {
+          position: relative;
+
+          img {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+          }
+
+            input {
+                padding: 16px 16px 16px 45px;
+                border: solid 2px #F0F0F0;
+                background: var(--color-white);
+                border-radius: 6px;
+                width: 320px;
+                
+                &::placeholder {
+                    position: relative;
+                    color: var(--color-text-light);
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+            }
+        }
+    }
+
+    .books-grid {
+        width: 100%;
+        max-width: 1240px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+}

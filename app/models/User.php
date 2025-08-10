@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Core\ModelEntity;
 
+//rajouter un slug
+
 /**
  * Entité représentant un utilisateur.
  * Avec les champs id, nom, email, mot de passe et date d'inscription.
