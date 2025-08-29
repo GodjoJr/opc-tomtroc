@@ -6,14 +6,21 @@ use App\Models\User;
 use App\Models\UsersManager;
 use Core\Error;
 
+
 class DashboardService
 {
-    function modifyAvatar($avatar)
+    /**
+     * Modifies the user's avatar.
+     * 
+     * @param string $avatar The new avatar.
+     * @return array An array containing a boolean key 'success' and a key 'errors' that contains an array of error messages.
+     */
+    public function modifyAvatar(string $avatar): array
     {
         $errors = [];
 
         if (empty($avatar)) {
-            $errors['avatar'][] = "Une image de profil est requise.";
+            $errors['avatar'][] = "An avatar is required.";
         }
 
         $user = new User();
@@ -26,7 +33,15 @@ class DashboardService
         return ['success' => true, 'errors' => $errors];
     }
 
-    function modifyUser($data)
+    /**
+     * Modifies the user's informations.
+     * 
+     * @param array $data The array of data to modify the user.
+     *                    The array must contain the keys 'email', 'password', and 'username'.
+     *                    The values of these keys must be strings.
+     * @return array An array containing a boolean key 'success' and a key 'errors' that contains an array of error messages.
+     */
+    public function modifyUser(array $data): array
     {
         $email = $data['email'] ?? null;
         $password = $data['password'] ?? null;
@@ -35,11 +50,11 @@ class DashboardService
         $errors = [];
 
         if (empty($email)) {
-            $errors['email'][] = "Une adresse email est requise.";
+            $errors['email'][] = "An email is required.";
         }
 
         if (empty($username)) {
-            $errors['username'][] = "Un nom d'utilisateur est requis.";
+            $errors['username'][] = "A username is required.";
         }
 
         $userManager = new UsersManager();

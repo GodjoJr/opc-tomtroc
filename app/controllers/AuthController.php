@@ -4,13 +4,24 @@ use App\Services\AuthService;
 use Core\Controller;
 use App\Views\View;
 
+
 class AuthController extends Controller
 {
 
+    /**
+     * Sign up page.
+     *
+     * If the request method is POST, it validates the form data and register the user.
+     * If the registration is successful, it redirects to the login page.
+     * If there are errors, it renders the sign up page with the errors and the old data.
+     * If the request method is not POST, it renders the sign up page with a new CSRF token.
+     *
+     * @return void
+     */
     public function signup()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Vérif CSRF
+  
             if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
                 die('Erreur : jeton CSRF invalide.');
             }
@@ -36,6 +47,16 @@ class AuthController extends Controller
         $views->render('signup');
     }
 
+    /**
+     * Login page.
+     *
+     * If the request method is POST, it validates the form data and login the user.
+     * If the login is successful, it redirects to the profile page.
+     * If there are errors, it renders the login page with the errors and the old data.
+     * If the request method is not POST, it renders the login page with a new CSRF token.
+     *
+     * @return void
+     */
     public function login()
     {
 
@@ -62,6 +83,13 @@ class AuthController extends Controller
         $views->render('login');
     }
 
+    /**
+     * Logout the user.
+     *
+     * Destroys the session and redirects to the home page.
+     *
+     * @return void
+     */
     public function logout()
     {
         session_destroy();

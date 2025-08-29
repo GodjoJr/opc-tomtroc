@@ -4,15 +4,14 @@ namespace App\Models;
 use App\Models\User;
 use Core\ModelManager;
 use Core\Error;
-/** 
- * Classe qui gère les articles.
- */
+
+
 class UsersManager extends ModelManager
 {
 
     /**
-     * Crée un utilisateur.
-     * @param User $user : l'utilisateur à créer.
+     * Creates a user.
+     * @param User $user : the user to create.
      */
     public function createUser(User $user)
     {
@@ -27,8 +26,8 @@ class UsersManager extends ModelManager
     }
 
     /**
-     * Recherche un utilisateur par son email.
-     * @param string $email : l'email de l'utilisateur à chercher.
+     * Finds a user by its email.
+     * @param string $email : the email of the user to find.
      * @return User|null
      */
     public function findUserByEmail($email)
@@ -46,7 +45,7 @@ class UsersManager extends ModelManager
     }
 
     /**
-     * Recherche un utilisateur par son identifiant.
+     * Finds a user by its id.
      *
      * @param int $id
      * @return User | Error
@@ -61,9 +60,31 @@ class UsersManager extends ModelManager
         if ($user) {
             return new User($user);
         }
-        return new Error("l'utilisateur n'existe pas.");
+        return new Error("The user does not exist.");
     }
 
+    /**
+     * Finds a user by its username.
+     * @param string $username : the username of the user to find.
+     * @return User | Error
+     */
+    public function findUserByUsername($username)
+    {
+        $sql = "SELECT * FROM users WHERE u_username = :username";
+        $result = $this->db->query($sql, [
+            'username' => $username,
+        ]);
+        $user = $result->fetch();
+        if ($user) {
+            return new User($user);
+        }
+        return new Error("The user does not exist.");
+    }
+
+    /**
+     * Modifies a user.
+     * @param User $user : the user to modify.
+     */
     public function modifyUser(User $user)
     {
         $sql = "UPDATE users SET u_username = :username, u_email = :email, u_password = :password WHERE u_id = :id";
@@ -75,6 +96,10 @@ class UsersManager extends ModelManager
         ]);
     }
 
+    /**
+     * Modifies a user's avatar.
+     * @param User $user : the user to modify.
+     */
     public function modifyAvatar(User $user)
     {
         $sql = "UPDATE users SET u_avatar = :avatar WHERE u_id = :id";
@@ -82,7 +107,6 @@ class UsersManager extends ModelManager
             'avatar' => $user->getAvatar(),
             'id' => $user->getId(),
         ]);
-        
     }
 }
 

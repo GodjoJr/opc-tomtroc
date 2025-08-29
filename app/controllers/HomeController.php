@@ -5,6 +5,12 @@ use Core\Controller;
 use App\Views\View;
 
 class HomeController extends Controller {
+
+    /**
+     * Display the homepage
+     *
+     * @return void
+     */
     public function index() {
 
         $booksManager = new BooksManager();

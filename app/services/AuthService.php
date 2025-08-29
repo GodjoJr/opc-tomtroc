@@ -6,8 +6,22 @@ use App\Models\User;
 use App\Models\UsersManager;
 use Core\Error;
 
+
 class AuthService
 {
+    /**
+     * Register a new user in the database.
+     *
+     * @param array $data The array of data to register the user.
+     *                     The array must contain the keys 'username', 'email', and 'password'.
+     *                     The values of these keys must be strings.
+     *                     The 'username' key must have a value with a length of at least 2 characters.
+     *                     The 'email' key must have a value that is a valid email address.
+     *                     The 'password' key must have a value with a length of at least 4 characters.
+     * @return array An array containing a boolean key 'success' and a key 'errors' that contains an array of error messages.
+     *               If 'success' is false, then 'errors' will contain an array of error messages.
+     *               If 'success' is true, then 'errors' will be an empty array.
+     */
     public function register(array $data): array
     {
         $errors = [];
@@ -46,7 +60,18 @@ class AuthService
         return ['success' => true];
     }
 
-
+    /**
+     * Login an existing user.
+     *
+     * @param array $data The array of data to login the user.
+     *                    The array must contain the keys 'email' and 'password'.
+     *                    The values of these keys must be strings.
+     *                    The 'email' key must have a value that is a valid email address.
+     *                    The 'password' key must have a value with a length of at least 4 characters.
+     * @return array An array containing a boolean key 'success' and a key 'errors' that contains an array of error messages.
+     *               If 'success' is false, then 'errors' will contain an array of error messages.
+     *               If 'success' is true, then 'errors' will be an empty array.
+     */
     public function login(array $data): array
     {
         $errors = [];
@@ -86,3 +111,4 @@ class AuthService
     }
 
 }
+

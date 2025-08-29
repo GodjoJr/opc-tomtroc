@@ -3,10 +3,17 @@
 use App\Models\BooksManager;
 use App\Models\Book;
 use Core\Controller;
+use Core\Error;
 use App\Views\View;
+
 
 class BooksController extends Controller
 {
+        /**
+         * Handle the creation of a new book
+         *
+         * @return void
+         */
     public function create()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -58,6 +65,11 @@ class BooksController extends Controller
         }
     }
 
+    /**
+     * Handle the archive page
+     *
+     * @return void
+     */
     public function archive()
     {
 
@@ -87,6 +99,12 @@ class BooksController extends Controller
         );
     }
 
+    /**
+     * Handle the detail page
+     *
+     * @param int $id
+     * @return void
+     */
     public function detail($id)
     {
         $booksManager = new BooksManager();
@@ -101,6 +119,12 @@ class BooksController extends Controller
         );
     }
 
+    /**
+     * Handle the delete action
+     *
+     * @param int $id
+     * @return void
+     */
     public function delete($id)
     {
         //TODO
@@ -108,10 +132,76 @@ class BooksController extends Controller
         header('Location: /dashboard/profile/' . $_SESSION['user']['username']);
     }
 
+    /**
+     * Handle the edit page
+     *
+     * @param int $id
+     * @return void
+     */
     function edit($id)
     {
-        //TODO
+       if(!isset($_SESSION['user']) || !$_SESSION['user'])
+       {
+           header('Location: /auth/login');
+       }
 
-        header('Location: /dashboard/profile/' . $_SESSION['user']['username']);
+        $booksManager = new BooksManager();
+        $book = $booksManager->getBookById($id);
+
+        if($_SESSION['user']['id'] !== $book['b_user_id']) {
+            header('Location: /dashboard/profile/' . $_SESSION['user']['username']);
+        }
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            //TODO : ajouter des checks
+            $title = $_POST['title'] ?? '';
+            $author = $_POST['author'] ?? '';
+            $commentary = $_POST['commentary'] ?? '';
+            $availaibility = $_POST['availaibility'] ?? 'unavailable';
+
+            $uploadDir = 'public/uploads/';
+            $publicPath = '/uploads/';
+            $imagePath = null;
+
+            if (isset($_FILES['cover']) && $_FILES['cover']['error'] === UPLOAD_ERR_OK) {
+                $tmpName = $_FILES['cover']['tmp_name'];
+                $originalName = basename($_FILES['cover']['name']);
+                $extension = pathinfo($originalName, PATHINFO_EXTENSION);
+
+                $safeName = 'book_' . $_SESSION['user']['username'] . '_' . time() . '.' . $extension;
+
+                $destination = $uploadDir . $safeName;
+
+                if (move_uploaded_file($tmpName, $destination)) {
+                    $imagePath = $publicPath . $safeName;
+                } else {
+                    //TODO : verfier/modifier
+                    new Error('Une erreur est survenue lors de l\'upload de l\'image.');
+                }
+            }
+
+            $book = (new Book())
+                ->setUserId($_SESSION['user']['id'])
+                ->setTitle($title)
+                ->setAuthor($author)
+                ->setDescription($commentary)
+                ->setStatus($availaibility)
+                ->setImage($imagePath);
+
+            $booksManager = new BooksManager();
+            $booksManager->updateBook($book);
+
+            header('Location: /dashboard/profile/' . $_SESSION['user']['username']);
+        }
+        
+        $views = new View('Modifier le livre');
+        $views->render(
+            'books/edit',
+            [
+                'book' => $book
+            ]
+        );
+
+
     }
 }

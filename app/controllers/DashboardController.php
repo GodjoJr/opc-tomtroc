@@ -3,24 +3,39 @@
 use Core\Controller;
 use App\Views\View;
 use App\Models\BooksManager;
+use App\Models\UsersManager;
 use App\Services\DashboardService;
 
 class DashboardController extends Controller
 {
+    
+    /**
+     * Show the user profile page.
+     * If the user is logged in and the provided username is the same as the current user,
+     * show the user's profile page with the ability to modify their informations.
+     * If not, show the user's public profile page.
+     * @param string $username The username of the user to show.
+     * @return void
+     */
     public function profile(string $username)
     {
         $username = urldecode($username);
 
-        if (empty($_SESSION['user'])) {
-            header('Location: /auth/login');
-            exit;
-        }
 
-        if ($_SESSION['user']['username'] !== $username) {
-        //TODO : à modifier pour laisser voir les autres profils ($books = getuserbyusername($username))
-            http_response_code(403);
-            echo "Accès interdit.";
-            exit;
+        if (!isset($_SESSION['user']) || empty($_SESSION['user']) || $_SESSION['user']['username'] !== $username) {
+
+            $books = new BooksManager();
+            $books = $books->getBooksByUserUsername(urlencode($username));
+
+            $user = new UsersManager();
+            $user = $user->findUserByUsername(urlencode($username));
+
+            $view = new View(('Profil - ' . $username));
+            $view->render('dashboard/public', [
+                'books' => $books,
+                'user' => $user
+            ]);
+            return;
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
