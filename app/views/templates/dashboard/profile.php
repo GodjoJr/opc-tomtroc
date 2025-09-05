@@ -1,5 +1,6 @@
 <div class="container profile-page">
     <h1>Mon compte</h1>
+
     <div class="user-container">
         <div class="left-container">
 

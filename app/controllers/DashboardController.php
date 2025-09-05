@@ -8,7 +8,7 @@ use App\Services\DashboardService;
 
 class DashboardController extends Controller
 {
-    
+
     /**
      * Show the user profile page.
      * If the user is logged in and the provided username is the same as the current user,
@@ -21,14 +21,13 @@ class DashboardController extends Controller
     {
         $username = urldecode($username);
 
-
         if (!isset($_SESSION['user']) || empty($_SESSION['user']) || $_SESSION['user']['username'] !== $username) {
 
             $books = new BooksManager();
-            $books = $books->getBooksByUserUsername(urlencode($username));
+            $books = $books->getBooksByUserUsername($username);
 
             $user = new UsersManager();
-            $user = $user->findUserByUsername(urlencode($username));
+            $user = $user->findUserByUsername($username);
 
             $view = new View(('Profil - ' . $username));
             $view->render('dashboard/public', [
@@ -79,6 +78,8 @@ class DashboardController extends Controller
                 }
             }
 
+
+
             if (!empty($_POST['email'] || !empty($_POST['password']) || !empty($_POST['username']))) {
 
                 $dashboardService = new DashboardService();
@@ -97,6 +98,7 @@ class DashboardController extends Controller
 
         $books = new BooksManager();
         $_SESSION['user']['books'] = $books->getBooksByUserId($_SESSION['user']['id']);
+
 
         $view = new View('Mon profil - ' . $_SESSION['user']['username']);
         $view->render('dashboard/profile', [

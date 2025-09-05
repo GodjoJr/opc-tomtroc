@@ -3,12 +3,13 @@
 use Core\Controller;
 use App\Views\View;
 use App\Models\MessageManager;
+use App\Models\UsersManager;
 use App\Models\Message;
 
 class MessageController extends Controller
 {
 
-    public function mailbox()
+    public function mailbox($id = null)
     {
 
         if (!isset($_SESSION['user']) || !$_SESSION['user']) {
@@ -16,19 +17,28 @@ class MessageController extends Controller
         }
 
         $messageManager = new MessageManager();
-        $messages = $messageManager->getConversationsByUser($_SESSION['user']['id']);
+        $discussions = $messageManager->getConversationsByUser($_SESSION['user']['id']);
 
-        $interlocutors = [];
-        foreach ($messages as $message) {
-            $interlocutors[$message['interlocutor_id']] = $messageManager->getInterlocutor($message['interlocutor_id']);
+        if (empty($id)) {
+            $id = $discussions[0]['interlocutor_id'];
         }
 
-        $message = $messages;
+        $usersManager = new UsersManager();
+        $interlocutor = $usersManager->findUserById($id) ?? null;
+
+        if (!$interlocutor) {
+            header('Location: /message/mailbox');
+        }
+
+        $messages = $messageManager->getAllMessagesFromAConversation($id, $_SESSION['user']['id']);
 
         $view = new View('Boîte de réception');
         $view->render('message/mailbox', [
             'user' => $_SESSION['user'],
-            'interlocutors' => $interlocutors
+            'discussions' => $discussions,
+            'messages' => $messages,
+            'interlocutor' => $interlocutor,
+            'id' => $id
         ]);
     }
 

@@ -48,7 +48,7 @@ class UsersManager extends ModelManager
      * Finds a user by its id.
      *
      * @param int $id
-     * @return User | Error
+     * @return User | null
      */
     public function findUserById($id)
     {
@@ -60,7 +60,7 @@ class UsersManager extends ModelManager
         if ($user) {
             return new User($user);
         }
-        return new Error("The user does not exist.");
+        return null;
     }
 
     /**

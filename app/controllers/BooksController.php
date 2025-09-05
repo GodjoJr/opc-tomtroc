@@ -127,8 +127,8 @@ class BooksController extends Controller
      */
     public function delete($id)
     {
-        //TODO
-
+        $booksManager = new BooksManager();
+        $booksManager->deleteBook($id);
         header('Location: /dashboard/profile/' . $_SESSION['user']['username']);
     }
 
@@ -139,69 +139,72 @@ class BooksController extends Controller
      * @return void
      */
     function edit($id)
-    {
-       if(!isset($_SESSION['user']) || !$_SESSION['user'])
-       {
-           header('Location: /auth/login');
-       }
+{
+    if (!isset($_SESSION['user']) || !$_SESSION['user']) {
+        header('Location: /auth/login');
+        exit;
+    }
 
-        $booksManager = new BooksManager();
-        $book = $booksManager->getBookById($id);
+    $booksManager = new BooksManager();
+    $book = $booksManager->getBookById($id);
 
-        if($_SESSION['user']['id'] !== $book['b_user_id']) {
-            header('Location: /dashboard/profile/' . $_SESSION['user']['username']);
-        }
+    if ($_SESSION['user']['id'] !== $book['b_user_id']) {
+        header('Location: /dashboard/profile/' . $_SESSION['user']['username']);
+        exit;
+    }
 
-        if($_SERVER['REQUEST_METHOD'] === 'POST') {
-            //TODO : ajouter des checks
-            $title = $_POST['title'] ?? '';
-            $author = $_POST['author'] ?? '';
-            $commentary = $_POST['commentary'] ?? '';
-            $availaibility = $_POST['availaibility'] ?? 'unavailable';
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $title = $_POST['title'] ?? '';
+        $author = $_POST['author'] ?? '';
+        $commentary = $_POST['commentary'] ?? '';
+        $availaibility = $_POST['availaibility'] ?? 'unavailable';
 
-            $uploadDir = 'public/uploads/';
-            $publicPath = '/uploads/';
-            $imagePath = null;
+        $uploadDir = 'public/uploads/';
+        $publicPath = '/uploads/';
 
-            if (isset($_FILES['cover']) && $_FILES['cover']['error'] === UPLOAD_ERR_OK) {
-                $tmpName = $_FILES['cover']['tmp_name'];
-                $originalName = basename($_FILES['cover']['name']);
-                $extension = pathinfo($originalName, PATHINFO_EXTENSION);
+        // Par défaut, garder l’ancienne image
+        $imagePath = $book['b_image'];
 
-                $safeName = 'book_' . $_SESSION['user']['username'] . '_' . time() . '.' . $extension;
+        // Si une nouvelle image est uploadée
+        if (!empty($_FILES['cover']['name']) && $_FILES['cover']['error'] === UPLOAD_ERR_OK) {
+            $tmpName = $_FILES['cover']['tmp_name'];
+            $originalName = basename($_FILES['cover']['name']);
+            $extension = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
 
-                $destination = $uploadDir . $safeName;
-
-                if (move_uploaded_file($tmpName, $destination)) {
-                    $imagePath = $publicPath . $safeName;
-                } else {
-                    //TODO : verfier/modifier
-                    new Error('Une erreur est survenue lors de l\'upload de l\'image.');
-                }
+            // Vérifier extension
+            $allowedExt = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+            if (!in_array($extension, $allowedExt)) {
+                new Error('Format d\'image non autorisé.');
             }
 
-            $book = (new Book())
-                ->setUserId($_SESSION['user']['id'])
-                ->setTitle($title)
-                ->setAuthor($author)
-                ->setDescription($commentary)
-                ->setStatus($availaibility)
-                ->setImage($imagePath);
+            $safeName = 'book_' . $_SESSION['user']['username'] . '_' . time() . '.' . $extension;
+            $destination = $uploadDir . $safeName;
 
-            $booksManager = new BooksManager();
-            $booksManager->updateBook($book);
-
-            header('Location: /dashboard/profile/' . $_SESSION['user']['username']);
+            if (move_uploaded_file($tmpName, $destination)) {
+                $imagePath = $publicPath . $safeName;
+            } else {
+                new Error('Une erreur est survenue lors de l\'upload de l\'image.');
+            }
         }
-        
-        $views = new View('Modifier le livre');
-        $views->render(
-            'books/edit',
-            [
-                'book' => $book
-            ]
-        );
 
+        // Met à jour l’objet avec l’image correcte
+        $book = (new Book())
+            ->setUserId($_SESSION['user']['id'])
+            ->setTitle($title)
+            ->setAuthor($author)
+            ->setDescription($commentary)
+            ->setStatus($availaibility)
+            ->setImage($imagePath);
 
+        $booksManager->updateBook($book, $id);
+
+        header('Location: /dashboard/profile/' . $_SESSION['user']['username']);
+        exit;
     }
+
+    $views = new View('Modifier le livre');
+    $views->render('books/edit', ['book' => $book]);
+}
+
+
 }

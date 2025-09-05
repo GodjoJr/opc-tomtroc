@@ -18,10 +18,7 @@
 
         </div>
 
-        <form class="send-message" action="/message/mailbox" method="post">
-            <input type="hidden" name="receiver" value="<?= $user->getId() ?>">
-            <button class="btn btn-secondary">Envoyer un message</button>
-        </form>
+        <a href="/message/mailbox/<?= $user->getId() ?>" class="btn btn-secondary">Ecrire un message</a>
 
     </div>
 

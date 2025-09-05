@@ -77,7 +77,8 @@ class BooksManager extends ModelManager
             books.*, 
             users.*
         FROM books
-        JOIN users ON books.b_user_id = users.u_id";
+        JOIN users ON books.b_user_id = users.u_id
+        ORDER BY b_id DESC";
 
         return $this->db->query($sql)->fetchAll();
     }
@@ -127,7 +128,7 @@ class BooksManager extends ModelManager
      * Updates a book
      * @param Book $book the book to update
      */
-    public function updateBook(Book $book)
+    public function updateBook(Book $book, $id)
     {
         $sql = "UPDATE books SET b_title = :title, b_author = :author, b_description = :description, b_status = :status, b_image = :image WHERE b_id = :id";
         $this->db->query($sql, [
@@ -136,8 +137,14 @@ class BooksManager extends ModelManager
             'description' => $book->getDescription(),
             'status' => $book->getStatus(),
             'image' => $book->getImage(),
-            'id' => $book->getId(),
+            'id' => $id
         ]);
 
+    }
+
+    public function deleteBook($id)
+    {
+        $sql = "DELETE FROM books WHERE b_id = :id";
+        $this->db->query($sql, ['id' => $id]);
     }
 }

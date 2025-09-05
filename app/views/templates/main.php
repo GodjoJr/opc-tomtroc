@@ -47,7 +47,7 @@
             <ul>
 
                 <?php if (isset($_SESSION['user'])): ?>
-                    <li><a href="/message"><img src="/icons/mailbox.svg" alt="Icone de messagerie">Messagerie</a></li>
+                    <li><a href="/message/mailbox"><img src="/icons/mailbox.svg" alt="Icone de messagerie">Messagerie</a></li>
                     <li><a href="/dashboard/profile/<?= htmlspecialchars($_SESSION['user']['username']) ?>"><img
                                 src="/icons/account.svg" alt="Icone de compte">Mon compte</a></li>
                     <li><a href="/auth/logout">Deconnexion</a></li>

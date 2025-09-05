@@ -2,7 +2,6 @@
 
     <a href="/dashboard/profile/<?= $_SESSION['user']['username'] ?>">Retour</a>
 
-
     <h1>Modifier les informations</h1>
 
     <form action="" method="post" enctype="multipart/form-data">
