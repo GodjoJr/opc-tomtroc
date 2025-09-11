@@ -52,7 +52,7 @@ class AuthService
             ->setUsername(htmlspecialchars($data['username']))
             ->setEmail(htmlspecialchars($data['email']))
             ->setPassword(password_hash($data['password'], PASSWORD_DEFAULT))
-            ->setAvatar('/images/default-avatar.png')
+            ->setAvatar('/images/default-avatar.jpg')
             ->setCreatedAt(new \DateTime());
 
         $userManager->createUser($user);

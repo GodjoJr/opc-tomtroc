@@ -45,6 +45,7 @@ class DashboardController extends Controller
             $uploadDir = 'public/uploads/';
             $publicPath = '/uploads/';
             $imagePath = null;
+            
             if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
                 $tmpName = $_FILES['avatar']['tmp_name'];
                 $originalName = basename($_FILES['avatar']['name']);

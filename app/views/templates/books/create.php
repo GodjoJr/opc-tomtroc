@@ -8,11 +8,17 @@
     <form action="" method="post" enctype="multipart/form-data">
 
         <div class="left-container image-container">
-            <label for="cover">Couverture</label>
-            <img id="preview" src="#" alt="Aperçu de l'image">
-            <input type="file" name="cover" id="cover">
-        </div>
+            <label for="cover">Photo</label>
 
+            <img id="preview" src="/images/default-cover.png" alt="Aperçu de l'image">
+
+            <input type="file" name="cover" id="cover" accept="image/*" style="display:none"
+                onchange="previewImage(this)">
+
+            <button class="file-btn" type="button" onclick="document.getElementById('cover').click();">
+                Ajouter une couverture
+            </button>
+        </div>
         <div class="right-container">
 
             <label for="title">Titre</label>
@@ -38,3 +44,16 @@
     </form>
 
 </div>
+
+<script>
+function previewImage(input) {
+    const file = input.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+            document.getElementById('preview').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+}
+</script>
