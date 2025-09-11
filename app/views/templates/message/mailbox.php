@@ -5,7 +5,6 @@
         <div class="left-container">
             <h1>Boîte de réception</h1>
             <pre>
-                <!-- <?php var_dump($interlocutor); ?> -->
             </pre>
 
             <?php foreach ($discussions as $discussion): ?>
@@ -19,7 +18,7 @@
                             <p class="username"><?= $discussion['interlocutor_username'] ?></p>
                             <p class="time"><?= $discussion['last_message_time'] ?></p>
                         </div>
-                        <p class="last-message"><?= $discussion['last_message'] ?></p>
+                        <p class="last-message <?= !$discussion['is_read'] ? 'unread' : '' ?>"><?= $discussion['last_message'] ?></p>
 
                     </div>
                 </a>
@@ -55,8 +54,7 @@
             <form action="/message/send" method="post">
                 <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                 <input type="hidden" name="receiver" value="<?= $interlocutor->getId() ?>">
-                <textarea name="message" id="message" cols="30" rows="10"
-                    placeholder="Ecrivez votre message ici..."></textarea>
+                <input type="text" name="message" id="message" placeholder="Ecrivez votre message ici..."></input>
                 <button type="submit">Envoyer</button>
             </form>
 

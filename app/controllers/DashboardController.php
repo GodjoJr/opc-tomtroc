@@ -38,7 +38,6 @@ class DashboardController extends Controller
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
             if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
                 die('Erreur : jeton CSRF invalide.');
             }
@@ -77,8 +76,6 @@ class DashboardController extends Controller
                     return;
                 }
             }
-
-
 
             if (!empty($_POST['email'] || !empty($_POST['password']) || !empty($_POST['username']))) {
 

@@ -43,11 +43,23 @@ header:not(.opened) {
                     letter-spacing: 0.28px;
                     display: flex;
                     align-items: center;
-                    gap: 10px;
 
                     img {
                         width: auto;
                         height: 14px;
+                        margin-right: 10px;
+                    }
+
+                    .unread-messages {
+                        color: #F5F3EF;
+                        font-family: Inter;
+                        font-size: 8.25px;
+                        font-style: normal;
+                        font-weight: 700;
+                        line-height: normal;
+                        border-radius: 6.75px;
+                        background: #292929;
+                        padding: 3px;
                     }
                 }
             }

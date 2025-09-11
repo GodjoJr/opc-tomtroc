@@ -48,11 +48,11 @@
         align-items: center;
         gap: 60px;
 
-        .top-container {
+        .top-container form {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
 
             .image-container {
                 width: 150px;
@@ -60,6 +60,20 @@
                 object-fit: cover;
                 border-radius: 50%;
                 overflow: hidden;
+            }
+
+            .file-btn {
+                border: unset;
+                background-color: unset;
+                text-decoration: underline;
+                text-underline-offset: 4px;
+                width: max-content;
+                cursor: pointer;
+                transition: all 0.3s ease-in-out;
+
+                &:hover {
+                    text-underline-offset: 6px;
+                }
             }
         }
 

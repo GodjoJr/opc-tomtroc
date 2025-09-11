@@ -4,6 +4,7 @@ namespace Core;
 
 use Core\Controller;
 use Core\Error;
+use App\Models\MessageManager;
 
 /**
  * Classe de routeur pour gérer les requêtes HTTP.
@@ -17,6 +18,10 @@ class Router
 
     public function __construct()
     {
+
+        $this->checkUnreadMessages();
+
+        // Analyse de l'URL
         $url = $this->parseUrl();
 
         // Contrôleur par défaut
@@ -54,7 +59,6 @@ class Router
     private function parseUrl(): array
     {
         $url = isset($_GET['url']) ? $_GET['url'] : $_SERVER['REQUEST_URI'];
-        //TODO FACTORISER AVEC CA
 
         if (isset($_GET['url'])) {
             return explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
@@ -76,13 +80,25 @@ class Router
         new Error($message);
 
         // Afficher une page d’erreur simple à l’utilisateur
-        
+
         echo "<h1>404 - Page non trouvée</h1>";
         echo "<p>Une erreur est survenue. Elle a été enregistrée.</p>";
         echo "<a href='/'>Retour à la page d'accueil</a>";
 
 
         exit;
+    }
+
+    private function checkUnreadMessages(): void
+    {
+
+        if(!isset($_SESSION['user']) || !$_SESSION['user']) {
+            return;
+        }
+        $messageManager = new MessageManager();
+        $count = $messageManager->countUnreadMessages($_SESSION['user']['id']);
+        $_SESSION['user']['unreadMessages'] = $count;
+
     }
 
 }

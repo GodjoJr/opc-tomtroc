@@ -5,22 +5,25 @@
         <div class="left-container">
 
             <div class="top-container">
-                <div class="image-container">
-                    <img src="<?= $user['avatar'] ?: '/images/default-avatar.jpg' ?>" alt="avatar de l'utilisateur">
-                </div>
 
                 <form action="" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
-                    <input type="file" name="avatar" id="avatar">
-                    <button type="submit">Modifier</button>
-                    <?php if (!empty($errors['avatar'])): ?>
-                        <div class="error-message">
-                            <?php foreach ($errors['avatar'] as $error): ?>
-                                <p><?= htmlspecialchars($error) ?></p>
-                            <?php endforeach; ?>
-                        </div>
-                    <?php endif; ?>
+
+                    <div class="image-container">
+                        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                        <img id="preview" src="<?= $user['avatar'] ?: '/images/default-avatar.jpg' ?>"
+                            alt="Aperçu de l'image">
+
+                    </div>
+
+                    <input type="file" name="avatar" id="avatar" accept="image/*" style="display:none"
+                        onchange="previewImage(this)">
+
+                    <button class="file-btn" type="button" onclick="document.getElementById('avatar').click();">
+                        Modifier la photo
+                    </button>
+
                 </form>
+
             </div>
 
             <div class="infos">
@@ -141,3 +144,17 @@
     </div>
 
 </div>
+
+<script>
+    function previewImage(input) {
+        const file = input.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = e => {
+                document.getElementById('avatar').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+            input.form.submit();
+        }
+    }
+</script>

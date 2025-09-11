@@ -23,6 +23,8 @@ class MessageController extends Controller
             $id = $discussions[0]['interlocutor_id'];
         }
 
+        $messageManager->readMessages($_SESSION['user']['id']);
+
         $usersManager = new UsersManager();
         $interlocutor = $usersManager->findUserById($id) ?? null;
 
