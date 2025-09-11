@@ -3,7 +3,7 @@
     <div class="container">
 
         <div class="left-container">
-            <h1>Boîte de réception</h1>
+            <h1>Messagerie</h1>
             <pre>
             </pre>
 
@@ -26,39 +26,39 @@
         </div>
 
         <div class="right-container">
-
-            <div class="top-container">
-                <a href="/dashboard/profile/<?= urlencode($interlocutor->getUsername()) ?>">
-                    <img src="<?= $interlocutor->getAvatar() ?: '/images/default-avatar.jpg' ?>"
-                        alt="Avatar de <?= $interlocutor->getUsername() ?>">
-                    <p class="username"><?= $interlocutor->getUsername() ?></p>
-                </a>
-            </div>
-
-            <div class="all-messages">
-                <?php foreach ($messages as $message): ?>
-                    <?php if ($message['m_sender_id'] == $_SESSION['user']['id']): ?>
-                        <div class="message right">
-                            <p class="time"><?= date('d.m H:i', strtotime($message['m_created_at'])) ?></p>
-                            <p class="content"><?= $message['m_content'] ?></p>
-                        </div>
-                    <?php else: ?>
-                        <div class="message left">
-                                <p class="time"><?= date('d.m H:i', strtotime($message['m_created_at'])) ?></p>
-                            <p class="content"><?= $message['m_content'] ?></p>
-                        </div>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </div>
-
-            <form action="/message/send" method="post">
-                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
-                <input type="hidden" name="receiver" value="<?= $interlocutor->getId() ?>">
-                <input type="text" name="message" id="message" placeholder="Ecrivez votre message ici..."></input>
-                <button type="submit">Envoyer</button>
-            </form>
-
+    <?php if ($interlocutor): ?>
+        <div class="top-container">
+            <a href="/dashboard/profile/<?= urlencode($interlocutor->getUsername()) ?>">
+                <img src="<?= $interlocutor->getAvatar() ?: '/images/default-avatar.jpg' ?>"
+                     alt="Avatar de <?= $interlocutor->getUsername() ?>">
+                <p class="username"><?= $interlocutor->getUsername() ?></p>
+            </a>
         </div>
 
-    </div>
+        <div class="all-messages">
+            <?php foreach ($messages as $message): ?>
+                <?php if ($message['m_sender_id'] == $_SESSION['user']['id']): ?>
+                    <div class="message right">
+                        <p class="time"><?= date('d.m H:i', strtotime($message['m_created_at'])) ?></p>
+                        <p class="content"><?= $message['m_content'] ?></p>
+                    </div>
+                <?php else: ?>
+                    <div class="message left">
+                        <p class="time"><?= date('d.m H:i', strtotime($message['m_created_at'])) ?></p>
+                        <p class="content"><?= $message['m_content'] ?></p>
+                    </div>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
+
+        <form action="/message/send" method="post">
+            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+            <input type="hidden" name="receiver" value="<?= $interlocutor->getId() ?>">
+            <input type="text" name="message" id="message" placeholder="Écrivez votre message ici..."></input>
+            <button type="submit">Envoyer</button>
+        </form>
+
+    <?php else: ?>
+        <p class="no-conversation">Aucune conversation pour le moment. Commencez par échanger avec un autre utilisateur !</p>
+    <?php endif; ?>
 </div>

@@ -72,7 +72,6 @@ class BooksManager extends ModelManager
      */
     public function getAllBooks()
     {
-        //rajouter order by
         $sql = "SELECT 
             books.*, 
             users.*

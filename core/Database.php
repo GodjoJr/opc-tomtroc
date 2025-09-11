@@ -5,22 +5,22 @@ namespace Core;
 use PDO;
 
 /**
- * Classe qui permet de se connecter à la base de données.
- * Cette classe est un singleton. Cela signifie qu'il n'est pas possible de créer plusieurs instances de cette classe.
- * Pour récupérer une instance de cette classe, il faut utiliser la méthode getInstance().
+ * Class that allows to connect to the database.
+ * This class is a singleton. This means that it is not possible to create multiple instances of this class.
+ * To get an instance of this class, you must use the getInstance() method.
  */
 class Database 
 {
-    // Création d'une classe singleton qui permet de se connecter à la base de données.
-    // On crée une instance de la classe DBConnect qui permet de se connecter à la base de données.
+    // Creation of a singleton class that allows to connect to the database.
+    // We create an instance of the DBConnect class that allows to connect to the database.
     private static $instance;
 
     private $db;
 
     /**
-     * Constructeur de la classe Database.
-     * Initialise la connexion à la base de données.
-     * Ce constructeur est privé. Pour récupérer une instance de la classe, il faut utiliser la méthode getInstance().
+     * Constructor of the Database class.
+     * Initializes the connection to the database.
+     * This constructor is private. To get an instance of the class, you must use the getInstance() method.
      * @see Database::getInstance()
      */
     private function __construct() 
@@ -32,7 +32,7 @@ class Database
     }
 
     /**
-     * Méthode qui permet de récupérer l'instance de la classe Database.
+     * Method that allows to retrieve the instance of the Database class.
      * @return Database
      */
     public static function getInstance() : Database
@@ -44,7 +44,7 @@ class Database
     }
 
     /**
-     * Méthode qui permet de récupérer l'objet PDO qui permet de se connecter à la base de données.
+     * Method that allows to retrieve the PDO object which allows to connect to the database.
      * @return PDO
      */
     public function getPDO() : PDO
@@ -53,11 +53,11 @@ class Database
     }
 
     /**
-     * Méthode qui permet d'exécuter une requête SQL.
-     * Si des paramètres sont passés, on utilise une requête préparée.
-     * @param string $sql : la requête SQL à exécuter.
-     * @param array|null $params : les paramètres de la requête SQL.
-     * @return \PDOStatement : le résultat de la requête SQL.
+     * Method that allows to execute a SQL query.
+     * If parameters are passed, we use a prepared query.
+     * @param string $sql : the SQL query to execute.
+     * @param array|null $params : the parameters of the SQL query.
+     * @return \PDOStatement : the result of the SQL query.
      */
     public function query(string $sql, ?array $params = null): \PDOStatement          
     {

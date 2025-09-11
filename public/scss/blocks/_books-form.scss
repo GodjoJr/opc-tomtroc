@@ -1,6 +1,12 @@
 @use './tools/' as *;
 
-#create-book, #edit-book {
+#create-book,
+#edit-book {
+
+    h1 {
+        margin-bottom: 20px;
+    }
+    
     form {
         display: flex;
         justify-content: center;
@@ -26,7 +32,8 @@
             flex-direction: column;
         }
 
-        label, .label {
+        label,
+        .label {
             color: var(--color-text-light);
             font-size: 14px;
             font-style: normal;
@@ -95,3 +102,20 @@
         }
     }
 }
+
+.breadcrumbs {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    margin-bottom: 20px;
+
+    a {
+        color: #A6A6A6;
+        font-family: Inter;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+}
+

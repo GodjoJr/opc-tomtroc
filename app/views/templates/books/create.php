@@ -1,7 +1,6 @@
 <div id="create-book" class="container">
 
-    <a href="/dashboard/profile/<?= $_SESSION['user']['username'] ?>">Retour</a>
-
+    <div class="breadcrumbs container"><img src="/icons/arrow-back.svg" alt="icone de retour"><a href="/dashboard/profile/<?= $_SESSION['user']['username'] ?>">Retour</a></div>
 
     <h1>Ajouter un livre</h1>
 

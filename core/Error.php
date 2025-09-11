@@ -3,9 +3,9 @@ namespace Core;
 class Error
 {
     /**
-     * Enregistre un message d'erreur dans un fichier de log.
-     * Les erreurs sont enregistrées dans le fichier error.log
-     * qui se trouve dans le dossier logs.
+     * Logs an error message into a file.
+     * Errors are logged into the error.log file
+     * which is located in the logs directory.
      *
      * @param string $message
      */

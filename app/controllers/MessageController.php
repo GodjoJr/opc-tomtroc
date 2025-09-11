@@ -9,40 +9,55 @@ use App\Models\Message;
 class MessageController extends Controller
 {
 
-    public function mailbox($id = null)
-    {
+public function mailbox($id = null)
+{
+    if (!isset($_SESSION['user']) || !$_SESSION['user']) {
+        header('Location: /auth/login');
+        exit;
+    }
 
-        if (!isset($_SESSION['user']) || !$_SESSION['user']) {
-            header('Location: /auth/login');
-        }
+    $messageManager = new MessageManager();
+    $discussions = $messageManager->getConversationsByUser($_SESSION['user']['id']);
 
-        $messageManager = new MessageManager();
-        $discussions = $messageManager->getConversationsByUser($_SESSION['user']['id']);
 
-        if (empty($id)) {
-            $id = $discussions[0]['interlocutor_id'];
-        }
-
-        $messageManager->readMessages($_SESSION['user']['id']);
-
-        $usersManager = new UsersManager();
-        $interlocutor = $usersManager->findUserById($id) ?? null;
-
-        if (!$interlocutor) {
-            header('Location: /message/mailbox');
-        }
-
-        $messages = $messageManager->getAllMessagesFromAConversation($id, $_SESSION['user']['id']);
-
-        $view = new View('Boîte de réception');
+    if (empty($discussions) && empty($id)) {
+        $view = new View('Boîte de réception');
         $view->render('message/mailbox', [
             'user' => $_SESSION['user'],
-            'discussions' => $discussions,
-            'messages' => $messages,
-            'interlocutor' => $interlocutor,
-            'id' => $id
+            'discussions' => [],
+            'messages' => [],
+            'interlocutor' => null,
+            'id' => null
         ]);
+        return; 
     }
+
+    if (empty($id)) {
+        $id = $discussions[0]['interlocutor_id'];
+    }
+
+    $messageManager->readMessages($_SESSION['user']['id']);
+
+    $usersManager = new UsersManager();
+    $interlocutor = $usersManager->findUserById($id) ?? null;
+
+    if (!$interlocutor) {
+        header('Location: /message/mailbox');
+        exit;
+    }
+
+    $messages = $messageManager->getAllMessagesFromAConversation($id, $_SESSION['user']['id']);
+
+    $view = new View('Boîte de réception');
+    $view->render('message/mailbox', [
+        'user' => $_SESSION['user'],
+        'discussions' => $discussions,
+        'messages' => $messages,
+        'interlocutor' => $interlocutor,
+        'id' => $id
+    ]);
+}
+
 
     public function send()
     {

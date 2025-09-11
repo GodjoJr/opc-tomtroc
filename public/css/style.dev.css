@@ -817,7 +817,8 @@ svg * {
   margin-bottom: 10px;
 }
 
-#create-book form, #edit-book form {
+#create-book form,
+#edit-book form {
   display: flex;
   justify-content: center;
   padding: 40px;
@@ -825,21 +826,27 @@ svg * {
   border-radius: 20px;
   gap: 100px;
 }
-#create-book form .left-container, #edit-book form .left-container {
+#create-book form .left-container,
+#edit-book form .left-container {
   display: flex;
   flex-direction: column;
 }
-#create-book form .left-container img, #edit-book form .left-container img {
+#create-book form .left-container img,
+#edit-book form .left-container img {
   width: 484px;
   height: 484px;
   object-fit: cover;
 }
-#create-book form .right-container, #edit-book form .right-container {
+#create-book form .right-container,
+#edit-book form .right-container {
   width: 50%;
   display: flex;
   flex-direction: column;
 }
-#create-book form label, #create-book form .label, #edit-book form label, #edit-book form .label {
+#create-book form label,
+#create-book form .label,
+#edit-book form label,
+#edit-book form .label {
   color: var(--color-text-light);
   font-size: 14px;
   font-style: normal;
@@ -848,14 +855,19 @@ svg * {
   margin-top: 32px;
   margin-bottom: 10px;
 }
-#create-book form label:first-child, #create-book form .label:first-child, #edit-book form label:first-child, #edit-book form .label:first-child {
+#create-book form label:first-child,
+#create-book form .label:first-child,
+#edit-book form label:first-child,
+#edit-book form .label:first-child {
   margin-top: 0;
 }
 #create-book form input,
 #create-book form textarea,
-#create-book form select, #create-book forminput:not(input[type=file]), #edit-book form input,
+#create-book form select, #create-book forminput:not(input[type=file]),
+#edit-book form input,
 #edit-book form textarea,
-#edit-book form select, #edit-book forminput:not(input[type=file]) {
+#edit-book form select,
+#edit-book forminput:not(input[type=file]) {
   font-family: "Inter", sans-serif;
   border-radius: 6px;
   border: 1px solid var(--color-background);
@@ -868,15 +880,19 @@ svg * {
 }
 #create-book form input:focus,
 #create-book form textarea:focus,
-#create-book form select:focus, #create-book forminput:not(input[type=file]):focus, #edit-book form input:focus,
+#create-book form select:focus, #create-book forminput:not(input[type=file]):focus,
+#edit-book form input:focus,
 #edit-book form textarea:focus,
-#edit-book form select:focus, #edit-book forminput:not(input[type=file]):focus {
+#edit-book form select:focus,
+#edit-book forminput:not(input[type=file]):focus {
   outline: solid 2px var(--color-primary);
 }
-#create-book form select, #edit-book form select {
+#create-book form select,
+#edit-book form select {
   padding: 15px 15px;
 }
-#create-book form button:not(.file-btn), #edit-book form button:not(.file-btn) {
+#create-book form button:not(.file-btn),
+#edit-book form button:not(.file-btn) {
   border-radius: 6px;
   padding: 25px 15px;
   font-size: 16px;
@@ -888,7 +904,8 @@ svg * {
   font-weight: 600;
   margin-top: 32px;
 }
-#create-book form .file-btn, #edit-book form .file-btn {
+#create-book form .file-btn,
+#edit-book form .file-btn {
   border: unset;
   background-color: unset;
   text-decoration: underline;
@@ -899,8 +916,18 @@ svg * {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
-#create-book form .file-btn:hover, #edit-book form .file-btn:hover {
+#create-book form .file-btn:hover,
+#edit-book form .file-btn:hover {
   text-underline-offset: 6px;
+}
+
+.breadcrumbs a {
+  color: #A6A6A6;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .profile-page,
@@ -1145,6 +1172,10 @@ svg * {
   width: 310px;
   background-color: #FAF9F7;
 }
+.mailbox .container .left-container h1 {
+  margin-top: 40px;
+  margin-left: 34px;
+}
 .mailbox .container .left-container .discussion {
   display: flex;
   gap: 40px;
@@ -1205,6 +1236,9 @@ svg * {
   flex-direction: column;
   justify-content: space-between;
   padding: 50px 0 90px;
+}
+.mailbox .container .right-container .no-conversation {
+  justify-self: flex-end;
 }
 .mailbox .container .right-container .top-container a {
   display: flex;

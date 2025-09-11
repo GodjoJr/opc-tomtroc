@@ -1,6 +1,7 @@
 <div id="edit-book" class="container">
 
-    <a href="/dashboard/profile/<?= $_SESSION['user']['username'] ?>">Retour</a>
+        <div class="breadcrumbs container"><img src="/icons/arrow-back.svg" alt="icone de retour"><a href="/dashboard/profile/<?= $_SESSION['user']['username'] ?>">Retour</a></div>
+
 
     <h1>Modifier les informations</h1>
 
@@ -36,7 +37,7 @@
                 <option value="unavailable">Indisponible</option>
             </select>
 
-            <button type="submit">Ajouter</button>
+            <button type="submit">Modifier</button>
 
         </div>
 

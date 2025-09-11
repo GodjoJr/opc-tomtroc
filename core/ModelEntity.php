@@ -3,12 +3,12 @@ namespace Core;
 use ReflectionMethod;
 abstract class ModelEntity
 {
-    // Par défaut l'id vaut -1, ce qui permet de vérifier facilement si l'entité est nouvelle ou pas. 
+    // By default the id is set to -1, which makes it easy to check if the entity is new or not.
     protected int $id = -1;
 
     /**
-     * Constructeur de la classe.
-     * Si un tableau associatif est passé en paramètre, on hydrate l'entité.
+     * Constructor of the class.
+     * If an associative array is passed as a parameter, the entity is hydrated.
      * 
      * @param array $data
      */
@@ -20,26 +20,26 @@ abstract class ModelEntity
     }
 
     /**
-     * Système d'hydratation de l'entité.
-     * Permet de transformer les données d'un tableau associatif.
-     * Les noms de champs de la table doivent correspondre aux noms des attributs de l'entité.
-     * Les underscore sont transformés en camelCase (ex: date_creation devient setDateCreation).
+     * Entity hydration system.
+     * Allows to transform data from an associative array.
+     * Table field names must match the entity's attribute names.
+     * Underscores are transformed into camelCase (e.g. date_creation becomes setDateCreation).
      * @return void
      */
     protected function hydrate(array $data): void
     {
         foreach ($data as $key => $value) {
 
-            // Ajoute le prefixe
+            // Add the prefix
             if (strpos($key, '_') !== false) {
                 $keyParts = explode('_', $key, 2);
                 $key = $keyParts[1] ?? $key;
             }
 
-            // Transforme le nom en camelCase et ajoute le suffixe set
+            // Transform the name into camelCase and add the set suffix
             $method = 'set' . str_replace('_', '', ucwords($key, '_'));
 
-            // Gestion de DateTime pour les champs createdAt et updatedAt
+            // DateTime management for createdAt and updatedAt fields
             if (method_exists($this, $method)) {
                 if (in_array($key, ['createdAt', 'updatedAt'], true)) {
                     $value = new \DateTime($value);
@@ -53,7 +53,7 @@ abstract class ModelEntity
 
 
     /** 
-     * Setter pour l'id.
+     * Setter for the id.
      * @param int $id
      * @return void
      */
@@ -64,7 +64,7 @@ abstract class ModelEntity
 
 
     /**
-     * Getter pour l'id.
+     * Getter for the id.
      * @return int
      */
     public function getId(): int

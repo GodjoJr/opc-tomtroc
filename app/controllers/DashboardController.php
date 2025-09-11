@@ -58,7 +58,6 @@ class DashboardController extends Controller
                 if (move_uploaded_file($tmpName, $destination)) {
                     $imagePath = $publicPath . $safeName;
                 } else {
-                    //TODO : verfier/modifier
                     new Error('Une erreur est survenue lors de l\'upload de l\'image.');
                 }
 

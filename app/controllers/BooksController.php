@@ -17,7 +17,6 @@ class BooksController extends Controller
     public function create()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            //TODO : ajouter des checks
             $title = $_POST['title'] ?? '';
             $author = $_POST['author'] ?? '';
             $commentary = $_POST['commentary'] ?? '';
@@ -39,7 +38,6 @@ class BooksController extends Controller
                 if (move_uploaded_file($tmpName, $destination)) {
                     $imagePath = $publicPath . $safeName;
                 } else {
-                    //TODO : verfier/modifier
                     new Error('Une erreur est survenue lors de l\'upload de l\'image.');
                 }
             }
@@ -77,8 +75,6 @@ class BooksController extends Controller
         $books = $booksManager->getAllBooks();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            //Faire un GET pour avoir l'url avec les parametres
-            // Vérif CSRF
 
             if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
                 die('Erreur : jeton CSRF invalide.');
@@ -162,16 +158,15 @@ class BooksController extends Controller
         $uploadDir = 'public/uploads/';
         $publicPath = '/uploads/';
 
-        // Par défaut, garder l’ancienne image
+
         $imagePath = $book['b_image'];
 
-        // Si une nouvelle image est uploadée
         if (!empty($_FILES['cover']['name']) && $_FILES['cover']['error'] === UPLOAD_ERR_OK) {
             $tmpName = $_FILES['cover']['tmp_name'];
             $originalName = basename($_FILES['cover']['name']);
             $extension = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
 
-            // Vérifier extension
+  
             $allowedExt = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
             if (!in_array($extension, $allowedExt)) {
                 new Error('Format d\'image non autorisé.');
@@ -187,7 +182,6 @@ class BooksController extends Controller
             }
         }
 
-        // Met à jour l’objet avec l’image correcte
         $book = (new Book())
             ->setUserId($_SESSION['user']['id'])
             ->setTitle($title)

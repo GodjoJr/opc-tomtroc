@@ -7,7 +7,7 @@ use Core\Error;
 use App\Models\MessageManager;
 
 /**
- * Classe de routeur pour gérer les requêtes HTTP.
+ * Class to manage HTTP requests.
  */
 class Router
 {
@@ -19,12 +19,13 @@ class Router
     public function __construct()
     {
 
+        // Messages
         $this->checkUnreadMessages();
 
-        // Analyse de l'URL
+        // URL
         $url = $this->parseUrl();
 
-        // Contrôleur par défaut
+        // Controller
         $controllerName = !empty($url[0]) ? ucfirst($url[0]) . 'Controller' : 'HomeController';
         $controllerPath = ROOT_URL . '/app/controllers/' . $controllerName . '.php';
 
@@ -36,23 +37,22 @@ class Router
             $this->handleNotFound("Le contrôleur \"$controllerName\" n'existe pas.");
         }
 
-        // Méthode du contrôleur
+        // Controller method
         if (isset($url[1]) && method_exists($this->controller, $url[1])) {
             $this->method = $url[1];
             unset($url[1]);
         } elseif (isset($url[1])) {
             $this->handleNotFound("La méthode \"{$url[1]}\" n'existe pas dans le contrôleur.");
         }
-
-        // Paramètres supplémentaires
+        // Additional parameters
         $this->params = $url ? array_values($url) : [];
 
-        // Appel du contrôleur->methode->params
+        // Call controller->method->params
         call_user_func_array([$this->controller, $this->method], $this->params);
     }
 
     /**
-     * Analyse l'URL pour extraire les parties dans un tableau.
+     * Parses the URL to extract the parts in an array.
      *
      * @return array
      */
@@ -69,7 +69,7 @@ class Router
     }
 
     /**
-     * Gère les erreurs 404.
+     * Handles 404 errors.
      *
      * @param string $message
      */

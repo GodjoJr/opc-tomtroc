@@ -8,6 +8,10 @@
     flex-direction: column;
     gap: 20px;
 
+    h1 {
+        margin-bottom: 20px;
+    }
+
     .detail {
         display: flex;
         justify-content: space-between;
